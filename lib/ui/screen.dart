@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:postsapp/ui/search_bar.dart';
+import 'package:postsapp/ui/update_dialog.dart';
 import 'package:postsapp/utils/globals.dart';
 import 'package:postsapp/utils/requests.dart';
 
@@ -26,9 +27,9 @@ class _ScreenState extends State<Screen> {
         elevation: 2,
         actions: [
           IconButton(
-            onPressed: ()=> theme.value = theme.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light, 
+            onPressed: ()=> AppState.theme.value = AppState.theme.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light, 
             icon:  ValueListenableBuilder(
-              valueListenable: theme,
+              valueListenable: AppState.theme,
               builder: (context,appTheme,_) {
                 return Icon(appTheme == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode);
               }
@@ -37,21 +38,22 @@ class _ScreenState extends State<Screen> {
         ],
 
         bottom:const PreferredSize(
-          preferredSize: Size(double.infinity, 60),
+          preferredSize: Size(double.infinity, 70),
           child: CustomSearchBar(),
         ),
       ),
 
       body: ValueListenableBuilder(
-        valueListenable: posts,
+        valueListenable: AppState.posts,
         builder: (context,posts,_){
           return ListView(
             padding: const EdgeInsets.all(10),
             children: posts.map((post) => Card(
               child: ListTile(
                 title: Text(post.title.toString(), style:const TextStyle(fontWeight: FontWeight.bold),),
-                subtitle: Text(post.body.toString()),
+                subtitle: Text(post.read ? "post read" : post.body.toString() ),
                 trailing: Icon(post.read ? Icons.check : Icons.close),
+                onTap: ()=>showDialog(context: context, builder: (context)=>UpdateDialog(post: post)),
               ),
             )).toList(),
           );

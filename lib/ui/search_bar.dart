@@ -6,14 +6,14 @@ class CustomSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:8.0),
+      padding: const EdgeInsets.fromLTRB(10,0,10,5),
       child: TextFormField(
         decoration:  InputDecoration(
           labelText: "search ..",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15)
           ),
-          prefix: const Icon(Icons.search)
+          prefixIcon: const Icon(Icons.search)
         ),
       ),
     );

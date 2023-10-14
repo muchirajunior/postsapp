@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: theme,
+      valueListenable: AppState.theme,
       builder: (context,appTheme,_) {
         return MaterialApp(
           title: 'Flutter Demo',
