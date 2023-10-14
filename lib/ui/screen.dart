@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:postsapp/ui/search_bar.dart';
 import 'package:postsapp/utils/globals.dart';
 import 'package:postsapp/utils/requests.dart';
 
@@ -34,6 +35,11 @@ class _ScreenState extends State<Screen> {
             )
           )
         ],
+
+        bottom:const PreferredSize(
+          preferredSize: Size(double.infinity, 60),
+          child: CustomSearchBar(),
+        ),
       ),
 
       body: ValueListenableBuilder(
