@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:postsapp/globals.dart';
-import 'package:postsapp/screen.dart';
+import 'package:postsapp/utils/globals.dart';
+import 'package:postsapp/ui/screen.dart';
 
 void main() {
   runApp(const MyApp());
