@@ -15,6 +15,7 @@ class CustomSearchBar extends StatelessWidget {
           ),
           prefixIcon: const Icon(Icons.search)
         ),
+        onTap: () {},
       ),
     );
   }
