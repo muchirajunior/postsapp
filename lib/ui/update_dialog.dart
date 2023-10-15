@@ -12,14 +12,16 @@ class UpdateDialog extends StatelessWidget {
     Navigator.pop(context);
   }
 
+
   @override
   Widget build(BuildContext context) {
+   
     return AlertDialog(
       title: Text('Update Post ${post.id}'),
       content: Text(post.title.toString()),
       actions: [
         TextButton(onPressed: ()=>Navigator.pop(context), child: const Text('cancel')),
-         TextButton(onPressed:()=> updatePost(context), child: const Text('submit'))
+        TextButton(onPressed:()=> updatePost(context), child: const Text('submit'))
       ],
     );
   }

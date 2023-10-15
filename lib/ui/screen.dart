@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:postsapp/models/post.dart';
 import 'package:postsapp/ui/search_bar.dart';
 import 'package:postsapp/ui/update_dialog.dart';
 import 'package:postsapp/utils/globals.dart';
@@ -12,6 +13,19 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
+
+  addPost(){
+    Map samplepost={
+        'id':AppState.posts.value.length+1,
+        "title":"some sample title",
+        "body":'some sample body for id ${AppState.posts.value.length+1}'
+    };
+    AppState.posts.value=[...AppState.posts.value,Post.fromJson(samplepost)];
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('post added ...!'), 
+      behavior: SnackBarBehavior.floating,
+    ));
+  }
 
   @override
   void initState() {
@@ -58,6 +72,11 @@ class _ScreenState extends State<Screen> {
             )).toList(),
           );
         }
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: addPost,
+        child: const Icon(Icons.add),
       ),
     );
   }
