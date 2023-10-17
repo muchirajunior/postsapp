@@ -18,7 +18,8 @@ Future getPosts()async{
         for (var item in data) {
           loadedposts.add(Post.fromJson(item));
         }
-        AppState.posts.value=loadedposts;
+        log('loaded posts .....');
+        AppState.posts.value=[...loadedposts];
       }else{
         log(response.body);
       }
