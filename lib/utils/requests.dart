@@ -10,15 +10,20 @@ Future getPosts()async{
   if(AppState.posts.value.length>5){
     return;
   }
-  var response=await get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-  if(response.statusCode == 200){
-    List data = jsonDecode(response.body);
-    List<Post> loadedposts=[];
-    for (var item in data) {
-      loadedposts.add(Post.fromJson(item));
+  try {
+      var response=await get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+      if(response.statusCode == 200){
+        List data = jsonDecode(response.body);
+        List<Post> loadedposts=[];
+        for (var item in data) {
+          loadedposts.add(Post.fromJson(item));
+        }
+        AppState.posts.value=loadedposts;
+      }else{
+        log(response.body);
+      }
+    } on Exception catch (e) {
+      log(e.toString());
     }
-    AppState.posts.value=loadedposts;
-  }else{
-    log(response.body);
-  }
+ 
 }

@@ -27,9 +27,18 @@ class _ScreenState extends State<Screen> {
     ));
   }
 
+  Future loadData()async{
+    while (true) {
+      await getPosts();
+      await Future.delayed(const Duration(seconds: 10));
+      AppState.posts.value=[];
+      await Future.delayed(const Duration(seconds: 4));
+    }
+  }
+
   @override
   void initState() {
-    getPosts();
+    loadData();
     super.initState();
   }
 
@@ -60,7 +69,7 @@ class _ScreenState extends State<Screen> {
       body: ValueListenableBuilder(
         valueListenable: AppState.posts,
         builder: (context,posts,_){
-          return ListView(
+          return posts.isEmpty ? const Center(child: CircularProgressIndicator(),) : ListView(
             padding: const EdgeInsets.all(10),
             children: posts.map((post) => Card(
               child: ListTile(
