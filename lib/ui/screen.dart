@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:postsapp/models/post.dart';
 import 'package:postsapp/ui/search_bar.dart';
@@ -14,10 +16,13 @@ class Screen extends StatefulWidget {
 
 class _ScreenState extends State<Screen> {
 
+  late Timer timer;
+  bool synched=true;
+
   addPost(){
     Map samplepost={
         'id':AppState.posts.value.length+1,
-        "title":"some sample title",
+        "title":"sample title",
         "body":'some sample body for id ${AppState.posts.value.length+1}'
     };
     AppState.posts.value=[...AppState.posts.value,Post.fromJson(samplepost)];
@@ -27,19 +32,27 @@ class _ScreenState extends State<Screen> {
     ));
   }
 
-  Future loadData()async{
-    while (true) {
-      await getPosts();
-      await Future.delayed(const Duration(seconds: 10));
+  Future loadData(Timer timer)async{
       AppState.posts.value=[];
-      await Future.delayed(const Duration(seconds: 4));
-    }
+      debugPrint('deleted data ');
+      await Future.delayed(const Duration(seconds: 3));
+      debugPrint('await  data ');
+      await getPosts(); 
+      debugPrint('fetched data '); 
+      await Future.delayed(const Duration(seconds: 5));
+      debugPrint('finished process '); 
   }
 
   @override
   void initState() {
-    loadData();
+    timer=Timer.periodic( synched ? const Duration(seconds: 30 ) : const Duration(seconds: 10) , loadData);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
